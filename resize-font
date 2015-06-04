@@ -26,10 +26,10 @@
 #
 
 my @fonts = (
-	{'name' => 'font',           'code' => 710},
-	{'name' => 'boldFont',       'code' => 711},
-	{'name' => 'italicFont',     'code' => 712},
-	{'name' => 'boldItalicFont', 'code' => 713},
+  {'name' => 'font',           'code' => 710},
+  {'name' => 'boldFont',       'code' => 711},
+  {'name' => 'italicFont',     'code' => 712},
+  {'name' => 'boldItalicFont', 'code' => 713},
 );
 
 sub on_start {
@@ -44,9 +44,9 @@ sub on_init {
    my ($self) = @_;
    my $commands = {
      "smaller" => "C-minus",
-     "bigger" => "C-plus",
-     "reset" => "C-equal",
-     "show" => "C-question",
+     "bigger"  => "C-plus",
+     "reset"   => "C-equal",
+     "show"    => "C-question",
    };
    bind_hotkeys($self, $commands);
 
@@ -69,16 +69,19 @@ sub on_user_command {
 
   if ($string =~ /bigger$/) {
     foreach (@fonts) {
+      next if not defined($_->{'default'});
       update_font_size($self, $_, +2);
     }
   }
   elsif ($string =~ /smaller$/) {
     foreach (@fonts) {
+      next if not defined($_->{'default'});
       update_font_size($self, $_, -2);
     }
   }
   elsif ($string =~ /reset$/) {
     foreach (@fonts) {
+      next if not defined($_->{'default'});
       set_font($self, $_, $_->{'default'});
     }
   }
